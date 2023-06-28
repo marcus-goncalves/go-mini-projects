@@ -1,8 +1,11 @@
 package database
 
 import (
+	"fmt"
+
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
+	"projects.com/prj-fiber/internals/entities"
 )
 
 var (
@@ -14,6 +17,9 @@ func InitDB() {
 	if err != nil {
 		panic("Failed to connect to database")
 	}
+
+	db.AutoMigrate(&entities.Book{})
+	fmt.Println("db migrated")
 
 	DbConn = db
 }
