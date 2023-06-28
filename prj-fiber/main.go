@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"projects.com/prj-fiber/internals/book"
+	"projects.com/prj-fiber/internals/database"
 )
 
 const (
@@ -11,6 +12,8 @@ const (
 
 func main() {
 	app := fiber.New()
+
+	database.InitDB()
 	setupRoutes(app)
 
 	app.Listen(":3000")
