@@ -25,10 +25,11 @@ func GetBook(c *fiber.Ctx) error {
 
 func NewBook(c *fiber.Ctx) error {
 	db := database.DbConn
-	book := entities.Book{
-		Title:  "1984",
-		Author: "George Orwell",
-		Rating: 5,
+
+	book := new(entities.Book)
+	if err := c.BodyParser(book); err != nil {
+		c.Status(400).SendString(err.Error())
+		return nil
 	}
 
 	db.Create(&book)
