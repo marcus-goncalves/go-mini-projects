@@ -28,8 +28,7 @@ func NewBook(c *fiber.Ctx) error {
 
 	book := new(entities.Book)
 	if err := c.BodyParser(book); err != nil {
-		c.Status(400).SendString(err.Error())
-		return nil
+		return c.Status(400).SendString(err.Error())
 	}
 
 	db.Create(&book)
@@ -43,8 +42,7 @@ func DeleteBook(c *fiber.Ctx) error {
 
 	db.First(&book, id)
 	if book.Title == "" {
-		c.Status(404).SendString("Book id not found")
-		return nil
+		return c.Status(404).SendString("Book id not found")
 	}
 
 	db.Delete(&book)
